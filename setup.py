@@ -22,15 +22,18 @@
 # Boston, MA 02110-1301 USA,
 
 from setuptools import setup
+from os import path
 
-# def readme():
-#     with open('README.org') as f:
-#         return f.read()
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(name='damescipy',
-      version='0.0.1',
+      version='0.0.4',
       description='Learning Scipy from Tests by David Arroyo Menéndez',
-#      long_description=readme(),
+      long_description=long_description,
+      long_description_content_type='text/markdown',
       classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
@@ -48,7 +51,7 @@ setup(name='damescipy',
       install_requires=[
           'markdown',
           'numpy',
-          'scipy',          
+          'scipy',
       ],
       test_suite='nose.collector',
       tests_require=['nose', 'nose-cover3'],
