@@ -30,7 +30,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='damescipy',
-      version='0.0.4',
+      version='0.0.5',
       description='Learning Scipy from Tests by David Arroyo Menéndez',
       long_description=long_description,
       long_description_content_type='text/markdown',
@@ -52,6 +52,7 @@ setup(name='damescipy',
           'markdown',
           'numpy',
           'scipy',
+          'pandas',
       ],
       test_suite='nose.collector',
       tests_require=['nose', 'nose-cover3'],
