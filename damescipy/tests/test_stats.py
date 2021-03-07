@@ -27,7 +27,7 @@ import scipy.stats as stats
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
+from pprint import pprint
 class TestBasics(TestCase):
 
     def test_bernoulli(self):
@@ -68,7 +68,7 @@ class TestBasics(TestCase):
         ax.legend(loc='best', frameon=False)
 #        plt.show()
         self.assertEqual("AxesSubplot(0.125,0.11;0.775x0.77)", str(ax))
-        
+
     def test_boltzman(self):
         from scipy.stats import boltzmann
         import matplotlib.pyplot as plt
@@ -107,7 +107,7 @@ class TestBasics(TestCase):
                   label='frozen pmf')
         ax.legend(loc='best', frameon=False)
         self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
-        
+
     def test_geom(self):
         from scipy.stats import geom
         import matplotlib.pyplot as plt
@@ -162,5 +162,30 @@ class TestBasics(TestCase):
         rv = poisson(mu)
         ax.vlines(x, 0, rv.pmf(x), colors='k', linestyles='-', lw=1,
                   label='frozen pmf')
-        ax.legend(loc='best', frameon=False)        
+        ax.legend(loc='best', frameon=False)
+        self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
+
+    def test_tstudent(self):
+        from scipy.stats import t
+        import matplotlib.pyplot as plt
+        fig, ax = plt.subplots(1, 1)
+
+        df = 2.74
+        mean, var, skew, kurt = t.stats(df, moments='mvsk')
+
+        x = np.linspace(t.ppf(0.01, df),
+                        t.ppf(0.99, df), 100)
+        ax.plot(x, t.pdf(x, df),
+                'r-', lw=5, alpha=0.6, label='t pdf')
+
+        rv = t(df)
+        ax.plot(x, rv.pdf(x), 'k-', lw=2, label='frozen pdf')
+
+        vals = t.ppf([0.001, 0.5, 0.999], df)
+        np.allclose([0.001, 0.5, 0.999], t.cdf(vals, df))
+
+        r = t.rvs(df, size=1000)
+
+        ax.hist(r, density=True, histtype='stepfilled', alpha=0.2)
+        ax.legend(loc='best', frameon=False)
         self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
