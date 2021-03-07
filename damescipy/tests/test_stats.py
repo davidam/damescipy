@@ -260,3 +260,28 @@ class TestBasics(TestCase):
         ax.hist(r, density=True, histtype='stepfilled', alpha=0.2)
         ax.legend(loc='best', frameon=False)
         self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
+
+
+    def test_cosine(self):
+        from scipy.stats import cosine
+        import matplotlib.pyplot as plt
+        fig, ax = plt.subplots(1, 1)
+
+        mean, var, skew, kurt = cosine.stats(moments='mvsk')
+
+        x = np.linspace(cosine.ppf(0.01),
+                        cosine.ppf(0.99), 100)
+        ax.plot(x, cosine.pdf(x),
+                'r-', lw=5, alpha=0.6, label='cosine pdf')
+
+        rv = cosine()
+        ax.plot(x, rv.pdf(x), 'k-', lw=2, label='frozen pdf')
+
+        vals = cosine.ppf([0.001, 0.5, 0.999])
+        np.allclose([0.001, 0.5, 0.999], cosine.cdf(vals))
+
+        r = cosine.rvs(size=1000)
+
+        ax.hist(r, density=True, histtype='stepfilled', alpha=0.2)
+        ax.legend(loc='best', frameon=False)
+        self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
