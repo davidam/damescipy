@@ -28,6 +28,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from pprint import pprint
+
+
 class TestBasics(TestCase):
 
     def test_bernoulli(self):
@@ -44,7 +46,8 @@ class TestBasics(TestCase):
 
         rv = bernoulli(p)
 
-        ax.vlines(x, 0, rv.pmf(x), colors='k', linestyles='-', lw=1, label='frozen pmf')
+        ax.vlines(x, 0, rv.pmf(x), colors='k',
+                  linestyles='-', lw=1, label='frozen pmf')
         ax.legend(loc='best', frameon=False)
 
         self.assertEqual("AxesSubplot(0.125,0.11;0.775x0.77)", str(ax))
@@ -78,7 +81,8 @@ class TestBasics(TestCase):
 
         x = np.arange(betabinom.ppf(0.01, n, a, b),
                       betabinom.ppf(0.99, n, a, b))
-        ax.plot(x, betabinom.pmf(x, n, a, b), 'bo', ms=8, label='betabinom pmf')
+        ax.plot(x, betabinom.pmf(x, n, a, b),
+                'bo', ms=8, label='betabinom pmf')
         ax.vlines(x, 0, betabinom.pmf(x, n, a, b), colors='b', lw=5, alpha=0.5)
 
         rv = betabinom(n, a, b)
@@ -98,8 +102,10 @@ class TestBasics(TestCase):
 
         x = np.arange(boltzmann.ppf(0.01, lambda_, N),
                       boltzmann.ppf(0.99, lambda_, N))
-        ax.plot(x, boltzmann.pmf(x, lambda_, N), 'bo', ms=8, label='boltzmann pmf')
-        ax.vlines(x, 0, boltzmann.pmf(x, lambda_, N), colors='b', lw=5, alpha=0.5)
+        ax.plot(x, boltzmann.pmf(x, lambda_, N),
+                'bo', ms=8, label='boltzmann pmf')
+        ax.vlines(x, 0, boltzmann.pmf(x, lambda_, N),
+                  colors='b', lw=5, alpha=0.5)
 
         rv = boltzmann(lambda_, N)
         ax.vlines(x, 0, rv.pmf(x), colors='k', linestyles='-', lw=1,
@@ -164,7 +170,6 @@ class TestBasics(TestCase):
         ax.set_ylabel('hypergeom PMF')
         self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
 
-
     def test_poisson(self):
         from scipy.stats import poisson
         import matplotlib.pyplot as plt
@@ -209,7 +214,6 @@ class TestBasics(TestCase):
         ax.legend(loc='best', frameon=False)
         self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
 
-
     def test_chi(self):
         from scipy.stats import chi
         import matplotlib.pyplot as plt
@@ -235,7 +239,6 @@ class TestBasics(TestCase):
         ax.legend(loc='best', frameon=False)
         self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
 
-
     def test_chi2(self):
         from scipy.stats import chi2
         import matplotlib.pyplot as plt
@@ -260,7 +263,6 @@ class TestBasics(TestCase):
         ax.hist(r, density=True, histtype='stepfilled', alpha=0.2)
         ax.legend(loc='best', frameon=False)
         self.assertEqual(str(ax), "AxesSubplot(0.125,0.11;0.775x0.77)")
-
 
     def test_cosine(self):
         from scipy.stats import cosine
@@ -313,16 +315,18 @@ class TestBasics(TestCase):
 
     def test_spearmanr(self):
         from scipy import stats
-        stats.spearmanr([1,2,3,4,5], [5,6,7,8,7])
+        stats.spearmanr([1, 2, 3, 4, 5], [5, 6, 7, 8, 7])
         np.random.seed(1234321)
         x2n = np.random.randn(100, 2)
         y2n = np.random.randn(100, 2)
         stats.spearmanr(x2n)
-        stats.spearmanr(x2n[:,0], x2n[:,1])
+        stats.spearmanr(x2n[:, 0], x2n[:, 1])
         rho, pval = stats.spearmanr(x2n, y2n)
         rho, pval = stats.spearmanr(x2n.T, y2n.T, axis=1)
         stats.spearmanr(x2n, y2n, axis=None)
         stats.spearmanr(x2n.ravel(), y2n.ravel())
         xint = np.random.randint(10, size=(100, 2))
         variable = stats.spearmanr(xint)
-        self.assertEqual("SpearmanrResult(correlation=0.05276092702971021, pvalue=0.6021304583706234)", str(variable))
+        str1 = "SpearmanrResult(correlation=0.05276092702971021,"
+        str1 = str1 + " pvalue=0.6021304583706234)"
+        self.assertEqual(str1, str(variable))
