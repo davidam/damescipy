@@ -26,11 +26,18 @@ import scipy.stats as stats
 import pandas as pd
 import numpy as np
 
+
 class TestBasics(TestCase):
 
     def test_chisquare(self):
-        self.assertEqual("Power_divergenceResult(statistic=2.0, pvalue=0.7357588823428847)", str(chisquare([16, 18, 16, 14, 12, 12], ddof=1)))
-        self.assertEqual("Power_divergenceResult(statistic=2.0, pvalue=array([0.84914504, 0.73575888, 0.5724067 ]))", str(chisquare([16, 18, 16, 14, 12, 12], ddof=[0,1,2])))
+        str1 = "Power_divergenceResult(statistic=2.0,"
+        str1 = str1 + " pvalue=0.7357588823428847)"
+        str2 = str(chisquare([16, 18, 16, 14, 12, 12], ddof=1))
+        self.assertEqual(str1, str2)
+        str3 = "Power_divergenceResult(statistic=2.0,"
+        str3 = str3 + " pvalue=array([0.84914504, 0.73575888, 0.5724067 ]))"
+        str4 = str(chisquare([16, 18, 16, 14, 12, 12], ddof=[0, 1, 2]))
+        self.assertEqual(str3, str4)
 
     def test_fisher(self):
         oddsratio, pvalue = stats.fisher_exact([[8, 2], [1, 5]])
@@ -42,16 +49,16 @@ class TestBasics(TestCase):
         b = np.arange(7)
         pvalue1, pvalue2 = stats.pearsonr(a, b)
         self.assertEqual((0.8660254037844386, 0.011724811003954649), (pvalue1, pvalue2))
-        pvalue3, pvalue4 = stats.pearsonr([1,2,3,4,5], [5,6,7,8,7])
+        pvalue3, pvalue4 = stats.pearsonr([1, 2, 3, 4, 5], [5, 6, 7, 8, 7])
         self.assertEqual((0.8320502943378436, 0.08050957329849862), (pvalue3, pvalue4))
 
     def test_anova(self):
         np.random.seed(12)
-        races =   ["asian","black","hispanic","other","white"]
+        races = ["asian", "black", "hispanic", "other", "white"]
 
         # Generate random data
         voter_race = np.random.choice(a= races,
-                              p = [0.05, 0.15 ,0.25, 0.05, 0.5],
+                              p = [0.05, 0.15, 0.25, 0.05, 0.5],
                               size=1000)
 
         voter_age = stats.poisson.rvs(loc=18,
@@ -59,7 +66,7 @@ class TestBasics(TestCase):
                               size=1000)
 
         # Group age data by race
-        voter_frame = pd.DataFrame({"race":voter_race,"age":voter_age})
+        voter_frame = pd.DataFrame({"race": voter_race, "age": voter_age})
         groups = voter_frame.groupby("race").groups
 
         # Extract individual groups
