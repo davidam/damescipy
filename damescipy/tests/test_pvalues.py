@@ -48,33 +48,34 @@ class TestBasics(TestCase):
         a = np.array([0, 0, 0, 1, 1, 1, 1])
         b = np.arange(7)
         pvalue1, pvalue2 = stats.pearsonr(a, b)
-        self.assertEqual((0.8660254037844386, 0.011724811003954649), (pvalue1, pvalue2))
-        pvalue3, pvalue4 = stats.pearsonr([1, 2, 3, 4, 5], [5, 6, 7, 8, 7])
-        self.assertEqual((0.8320502943378436, 0.08050957329849862), (pvalue3, pvalue4))
+        self.assertEqual((0.8660254037844386, 0.011724811003954649),
+                         (pvalue1, pvalue2))
+        pvalue3, pvalue4 = stats.pearsonr([1, 2, 3, 4, 5],
+                                          [5, 6, 7, 8, 7])
+        self.assertEqual((0.8320502943378436, 0.08050957329849862),
+                         (pvalue3, pvalue4))
 
     def test_anova(self):
         np.random.seed(12)
         races = ["asian", "black", "hispanic", "other", "white"]
-
         # Generate random data
-        voter_race = np.random.choice(a= races,
-                              p = [0.05, 0.15, 0.25, 0.05, 0.5],
-                              size=1000)
-
+        voter_race = np.random.choice(a=races,
+                                      p=[0.05, 0.15, 0.25, 0.05, 0.5],
+                                      size=1000)
         voter_age = stats.poisson.rvs(loc=18,
-                              mu=30,
-                              size=1000)
-
+                                      mu=30,
+                                      size=1000)
         # Group age data by race
         voter_frame = pd.DataFrame({"race": voter_race, "age": voter_age})
         groups = voter_frame.groupby("race").groups
-
         # Extract individual groups
         asian = voter_age[groups["asian"]]
         black = voter_age[groups["black"]]
         hispanic = voter_age[groups["hispanic"]]
         other = voter_age[groups["other"]]
         white = voter_age[groups["white"]]
-
         # Perform the ANOVA
-        self.assertEqual(str(stats.f_oneway(asian, black, hispanic, other, white)), "F_onewayResult(statistic=1.7744689357329695, pvalue=0.13173183201930463)")
+        str1 = "F_onewayResult(statistic=1.7744689357329695, "
+        str1 = str1 + "pvalue=0.13173183201930463)"
+        self.assertEqual(str(stats.f_oneway(asian, black,
+                                            hispanic, other, white)), str1)
