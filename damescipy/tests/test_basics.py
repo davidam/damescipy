@@ -30,6 +30,8 @@ from scipy import stats
 from scipy.stats import poisson
 from scipy.interpolate import interp1d
 from scipy.optimize import fmin
+import collections
+collections.Callable = collections.abc.Callable
 
 class TestBasics(TestCase):
 
@@ -54,9 +56,9 @@ class TestBasics(TestCase):
         x = sp.arange(-4,1,.05)
         y = sp.polyval(polinomio,x)
         raices = sp.roots(polinomio)
-        self.assertEqual(raices[0], -2.816023020827658)
-        self.assertEqual(raices[1], -0.6691329703979497)
-        self.assertEqual(raices[2], 0.4082329143025312)
+        self.assertEqual(raices[0], -2.8160230208276578)
+        self.assertEqual(raices[1], -0.6691329703979499)
+        self.assertEqual(raices[2], 0.4082329143025311)
 
     def test_poisson(self):
         mu = 0.6
@@ -75,7 +77,7 @@ class TestBasics(TestCase):
         limite_superior = 5
         exponencial_decreciente = lambda x: sp.exp(-x)
         integrate.quad(exponencial_decreciente ,limite_inferior,limite_superior)
-        self.assertEqual(integrate.quad(exponencial_decreciente ,limite_inferior,limite_superior), (0.9932620530009145, 1.102742400728068e-14))
+        self.assertEqual(integrate.quad(exponencial_decreciente ,limite_inferior,limite_superior), (0.9932620530009144, 1.1027424007280678e-14))
 
     def test_interpolate(self):
         x = np.linspace(0, 10, num=11, endpoint=True)
