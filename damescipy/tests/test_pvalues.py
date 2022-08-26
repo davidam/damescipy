@@ -25,6 +25,8 @@ from scipy.stats import chisquare
 import scipy.stats as stats
 import pandas as pd
 import numpy as np
+import collections
+collections.Callable = collections.abc.Callable
 
 
 class TestBasics(TestCase):
@@ -41,14 +43,14 @@ class TestBasics(TestCase):
 
     def test_fisher(self):
         oddsratio, pvalue = stats.fisher_exact([[8, 2], [1, 5]])
-        self.assertEqual(pvalue, 0.03496503496503495)
+        self.assertEqual(pvalue, 0.034965034965034975)
         self.assertEqual(oddsratio, 20)
 
     def test_pearsonr(self):
         a = np.array([0, 0, 0, 1, 1, 1, 1])
         b = np.arange(7)
         pvalue1, pvalue2 = stats.pearsonr(a, b)
-        self.assertEqual((0.8660254037844386, 0.011724811003954649),
+        self.assertEqual((0.8660254037844387, 0.011724811003954626),
                          (pvalue1, pvalue2))
         pvalue3, pvalue4 = stats.pearsonr([1, 2, 3, 4, 5],
                                           [5, 6, 7, 8, 7])
@@ -79,3 +81,10 @@ class TestBasics(TestCase):
         str1 = str1 + "pvalue=0.13173183201930463)"
         self.assertEqual(str(stats.f_oneway(asian, black,
                                             hispanic, other, white)), str1)
+
+
+
+
+
+
+
