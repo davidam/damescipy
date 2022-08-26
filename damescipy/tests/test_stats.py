@@ -27,7 +27,6 @@ import scipy.stats as stats
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from pprint import pprint
 
 
 class TestBasics(TestCase):
@@ -311,7 +310,7 @@ class TestBasics(TestCase):
         a = np.array([0, 0, 0, 1, 1, 1, 1])
         b = np.arange(7)
         val = stats.pearsonr(a, b)
-        self.assertEqual(val, (0.8660254037844386, 0.011724811003954649))
+        self.assertEqual(val, (0.8660254037844387, 0.011724811003954626))
 
     def test_spearmanr(self):
         from scipy import stats
