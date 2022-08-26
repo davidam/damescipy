@@ -27,6 +27,8 @@ import scipy.stats as stats
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import collections
+collections.Callable = collections.abc.Callable
 
 
 class TestBasics(TestCase):
