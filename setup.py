@@ -30,7 +30,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='damescipy',
-      version='0.1.1',
+      version='0.1.2',
       description='Learning Scipy from Tests by David Arroyo Menéndez',
       long_description=long_description,
       long_description_content_type='text/markdown',
@@ -43,11 +43,12 @@ setup(name='damescipy',
       keywords='scipy tests',
       url='http://github.com/davidam/damescipy',
       author='David Arroyo Menéndez',
-      author_email='davidam@gnu.org',
+      author_email='davidam@gmail.com',
       license='GPLv3',
       packages=['damescipy', 'damescipy.tests'],
       package_dir={'damescipy': 'damescipy',
                    'damescipy.tests': 'damescipy/tests'},
+      data_files=[('damescipy', ['damescipy/runtests.sh'])],
       install_requires=[
           'markdown',
           'numpy',
