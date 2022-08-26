@@ -30,7 +30,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='damescipy',
-      version='0.0.5',
+      version='0.1.1',
       description='Learning Scipy from Tests by David Arroyo Menéndez',
       long_description=long_description,
       long_description_content_type='text/markdown',
@@ -41,13 +41,13 @@ setup(name='damescipy',
         'Topic :: Scientific/Engineering',
       ],
       keywords='scipy tests',
-#      scripts=['bin/funniest-joke'],
       url='http://github.com/davidam/damescipy',
       author='David Arroyo Menéndez',
       author_email='davidam@gnu.org',
       license='GPLv3',
       packages=['damescipy', 'damescipy.tests'],
-      package_dir={'damescipy': 'damescipy', 'damescipy.tests': 'damescipy/tests'},
+      package_dir={'damescipy': 'damescipy',
+                   'damescipy.tests': 'damescipy/tests'},
       install_requires=[
           'markdown',
           'numpy',
@@ -56,8 +56,5 @@ setup(name='damescipy',
       ],
       test_suite='nose.collector',
       tests_require=['nose', 'nose-cover3'],
-      # entry_points={
-      #     'console_scripts': ['funniest-joke=funniest.command_line:main'],
-      # },
       include_package_data=True,
       zip_safe=False)
