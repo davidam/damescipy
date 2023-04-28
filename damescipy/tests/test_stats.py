@@ -328,6 +328,6 @@ class TestBasics(TestCase):
         stats.spearmanr(x2n.ravel(), y2n.ravel())
         xint = np.random.randint(10, size=(100, 2))
         variable = stats.spearmanr(xint)
-        str1 = "SpearmanrResult(correlation=0.05276092702971021,"
+        str1 = "Result(statistic=0.05276092702971021,"
         str1 = str1 + " pvalue=0.6021304583706234)"
-        self.assertEqual(str1, str(variable))
+        self.assertTrue(str1 in str(variable))
